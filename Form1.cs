@@ -1,64 +1,50 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using DateSeparator.Logic;
 using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace DateSeparator
 {
     public partial class Form1 : Form
     {
-        
-        
+        private readonly ILogic logic;
+
         public Form1()
         {
             InitializeComponent();
+            this.logic = new Logic.Logic();
         }
 
         
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void Form1_Load_1(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
+        
+        private void sourceButton_Click(object sender, EventArgs e)
         {
             CommonOpenFileDialog dialog = new CommonOpenFileDialog();
             dialog.IsFolderPicker = true;
             //dialog.InitialDirectory = Directory.GetCurrentDirectory();
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                textBox1.Text = dialog.FileName;
+                sourceTextBox.Text = dialog.FileName;
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void targetButton_Click(object sender, EventArgs e)
         {
             CommonOpenFileDialog dialog = new CommonOpenFileDialog();
             dialog.IsFolderPicker = true;
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                textBox2.Text = dialog.FileName;
+                targetTextBox.Text = dialog.FileName;
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void startButton_Click(object sender, EventArgs e)
         {
-            if(textBox1.Text.Length != 0 || textBox2.Text.Length != 0)
+            if(sourceTextBox.Text.Length != 0 && targetTextBox.Text.Length != 0)
             {
-                button3.Enabled = false;
+                startButton.Enabled = false;
                 progressBar.Visible = true;
                 warningLabel.Visible = true;
                 backgroundWorker.RunWorkerAsync();
@@ -70,18 +56,10 @@ namespace DateSeparator
             }
             
         }
-        public void CreateFile(String path)
-        {
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-
-            }
-        }
-
+        
         private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            button3.Enabled = true;
+            startButton.Enabled = true;
             progressBar.Visible = false;
             warningLabel.Visible = false;
             MessageBox.Show("Operation is completed");
@@ -89,41 +67,36 @@ namespace DateSeparator
 
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            string targetDirectory = textBox2.Text;
-            CreateFile(targetDirectory);
+            string targetPath = targetTextBox.Text;
 
-            var filesPath = textBox1.Text;
-            var filesToHandle = new DirectoryInfo(filesPath);
+            var sourcePath = sourceTextBox.Text;
 
-
-            var files = filesToHandle.GetFiles();
-
-
-            foreach (var fileInfo in files)
+            if (everyMonthRadioButton.Checked)
             {
-                //Console.WriteLine(fileInfo + " and the creation date is ; " + fileInfo.LastWriteTime);
+                this.logic.CopyIntoEveryMonth(sourcePath,targetPath);
 
-
-                var newTargetWithYearAndMonth = targetDirectory + @"\" + fileInfo.LastWriteTime.Year + @"\" + fileInfo.LastWriteTime.Month;
-                CreateFile(newTargetWithYearAndMonth);
-                File.Copy(filesPath + @"\" + fileInfo.Name, newTargetWithYearAndMonth + @"\" + fileInfo.Name);
-
-                //Console.WriteLine();
-            }
-
-            var directories = filesToHandle.GetDirectories();
-            while (directories.Length != 0)
+            }else if (every3MonthRadioButton.Checked)
             {
-
+                this.logic.CopyIntoEvery3Month(sourcePath, targetPath);
             }
-
+           
+            
+            
+     
         }
-
         public void SubDirectoryChecker()
         {
 
+
+            //subdirectory
+
+            //var directories = filesToHandle.GetDirectories();
+            //while (directories.Length != 0)
+            //{
+
+            //}
         }
 
-        
+
     }
 }
