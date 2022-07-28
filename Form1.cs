@@ -78,6 +78,9 @@ namespace DateSeparator
             }else if (every3MonthRadioButton.Checked)
             {
                 this.logic.CopyIntoEvery3Month(sourcePath, targetPath);
+            }else if (yearRadioButton.Checked)
+            {
+                this.logic.CopyIntoYears(sourcePath, targetPath);
             }
            
             
@@ -97,6 +100,6 @@ namespace DateSeparator
             //}
         }
 
-
+        
     }
 }

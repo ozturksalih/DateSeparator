@@ -23,7 +23,7 @@ namespace DateSeparator.Logic
                 //Console.WriteLine(fileInfo + " and the creation date is ; " + fileInfo.LastWriteTime);
                 var newTargetWithYearAndMonth = targetPath + @"\" + fileInfo.LastWriteTime.Year + @"\" + (Static.Months)(fileInfo.LastWriteTime.Month - 1);
                 CreateFile(newTargetWithYearAndMonth);
-                File.Copy(fileInfo.DirectoryName + @"\" + fileInfo.Name, newTargetWithYearAndMonth + @"\" + fileInfo.Name,true);
+                File.Copy(fileInfo.DirectoryName + @"\" + fileInfo.Name, newTargetWithYearAndMonth + @"\" + fileInfo.Name, true);
             }
         }
 
@@ -76,8 +76,28 @@ namespace DateSeparator.Logic
                 }
 
                 CreateFile(newTargetWithYearWithMonth);
-                File.Copy(fileInfo.DirectoryName + @"\" + fileInfo.Name, newTargetWithYearWithMonth + @"\" + fileInfo.Name,true);
+                File.Copy(fileInfo.DirectoryName + @"\" + fileInfo.Name, newTargetWithYearWithMonth + @"\" + fileInfo.Name, true);
 
+            }
+        }
+
+        public void CopyIntoYears(string sourcePath, string targetPath)
+        {
+            CreateFile(targetPath);
+
+
+            var filesToHandle = new DirectoryInfo(sourcePath);
+
+
+            var files = filesToHandle.GetFiles("*.*", SearchOption.AllDirectories);
+
+
+            foreach (var fileInfo in files)
+            {
+                //Console.WriteLine(fileInfo + " and the creation date is ; " + fileInfo.LastWriteTime);
+                var newTargetWithYear = targetPath + @"\" + fileInfo.LastWriteTime.Year;
+                CreateFile(newTargetWithYear);
+                File.Copy(fileInfo.DirectoryName + @"\" + fileInfo.Name, newTargetWithYear + @"\" + fileInfo.Name, true);
             }
         }
         public void CreateFile(String path)

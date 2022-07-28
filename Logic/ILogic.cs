@@ -10,7 +10,7 @@ namespace DateSeparator.Logic
     {
         void CopyIntoEveryMonth(string sourcePath, string targetPath);
         void CopyIntoEvery3Month(string sourcePath, string targetPath);
-
+        void CopyIntoYears(string sourcePath, string targetPath);
         void CreateFile(String path);
     }
 }

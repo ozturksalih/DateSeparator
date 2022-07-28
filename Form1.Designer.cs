@@ -42,6 +42,7 @@ namespace DateSeparator
             this.warningLabel = new System.Windows.Forms.Label();
             this.everyMonthRadioButton = new System.Windows.Forms.RadioButton();
             this.every3MonthRadioButton = new System.Windows.Forms.RadioButton();
+            this.yearRadioButton = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // sourceLabel
@@ -50,7 +51,7 @@ namespace DateSeparator
             this.sourceLabel.Font = new System.Drawing.Font("Segoe UI", 15F);
             this.sourceLabel.Location = new System.Drawing.Point(71, 42);
             this.sourceLabel.Name = "sourceLabel";
-            this.sourceLabel.Size = new System.Drawing.Size(338, 62);
+            this.sourceLabel.Size = new System.Drawing.Size(225, 41);
             this.sourceLabel.TabIndex = 0;
             this.sourceLabel.Text = "Path of Source ;";
             // 
@@ -60,7 +61,7 @@ namespace DateSeparator
             this.targetLabel.Font = new System.Drawing.Font("Segoe UI", 15F);
             this.targetLabel.Location = new System.Drawing.Point(71, 107);
             this.targetLabel.Name = "targetLabel";
-            this.targetLabel.Size = new System.Drawing.Size(336, 62);
+            this.targetLabel.Size = new System.Drawing.Size(224, 41);
             this.targetLabel.TabIndex = 1;
             this.targetLabel.Text = "Path of Target  ;";
             // 
@@ -168,11 +169,24 @@ namespace DateSeparator
             this.every3MonthRadioButton.Text = "Every 3 Month";
             this.every3MonthRadioButton.UseVisualStyleBackColor = true;
             // 
+            // yearRadioButton
+            // 
+            this.yearRadioButton.AutoSize = true;
+            this.yearRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.yearRadioButton.Location = new System.Drawing.Point(87, 311);
+            this.yearRadioButton.Name = "yearRadioButton";
+            this.yearRadioButton.Size = new System.Drawing.Size(145, 33);
+            this.yearRadioButton.TabIndex = 14;
+            this.yearRadioButton.Text = "Just years";
+            this.yearRadioButton.UseVisualStyleBackColor = true;
+            
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(899, 437);
+            this.Controls.Add(this.yearRadioButton);
             this.Controls.Add(this.every3MonthRadioButton);
             this.Controls.Add(this.everyMonthRadioButton);
             this.Controls.Add(this.warningLabel);
@@ -208,6 +222,7 @@ namespace DateSeparator
         private System.Windows.Forms.Label warningLabel;
         private System.Windows.Forms.RadioButton everyMonthRadioButton;
         private System.Windows.Forms.RadioButton every3MonthRadioButton;
+        private System.Windows.Forms.RadioButton yearRadioButton;
     }
 }
 
