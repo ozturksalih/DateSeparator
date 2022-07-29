@@ -5,12 +5,36 @@ namespace DateSeparator.Logic
 {
     public class Logic : ILogic
     {
+        public long readBytes = 0;
+        public long maxBytes = 0;
+
+        public void ResetBytes()
+        {
+            this.readBytes = 0;
+            this.maxBytes = 0;
+            Form1.backgroundWorker.ReportProgress(0);
+        }
+        public long CalculateFilesSize(string path)
+        {
+            var directoryInfo = new DirectoryInfo(path);
+            var files = directoryInfo.GetFiles("*.*", SearchOption.AllDirectories);
+
+            long size = 0;
+            foreach (var fileInfo in files)
+            {
+                if ((fileInfo.Attributes & FileAttributes.Directory) != 0) continue;
+                size += fileInfo.Length;
+            }
+            
+            return size;
+        }
+
         public void CopyIntoEveryMonth(string sourcePath, string targetPath)
         {
 
 
             CreateFile(targetPath);
-
+            this.maxBytes = CalculateFilesSize(sourcePath);
 
             var filesToHandle = new DirectoryInfo(sourcePath);
 
@@ -24,13 +48,31 @@ namespace DateSeparator.Logic
                 var newTargetWithYearAndMonth = targetPath + @"\" + fileInfo.LastWriteTime.Year + @"\" + (Static.Months)(fileInfo.LastWriteTime.Month - 1);
                 CreateFile(newTargetWithYearAndMonth);
                 File.Copy(fileInfo.DirectoryName + @"\" + fileInfo.Name, newTargetWithYearAndMonth + @"\" + fileInfo.Name, true);
+                readBytes += fileInfo.Length;
+                CalculateProgress(readBytes);
             }
+            ResetBytes();
+            
+        }
+
+        public void CalculateProgress(long readBytes)
+        {
+            int percentage = (int)(100.0 * readBytes / this.maxBytes);
+            if (percentage > 100)
+            {
+                percentage = 99;
+            }
+            Console.WriteLine("readBytes = " + readBytes);
+            Console.WriteLine("percentage = " + percentage);
+            Console.WriteLine("totalBytes = " + this.maxBytes);
+            Form1.backgroundWorker.ReportProgress(percentage);
         }
 
         public void CopyIntoEvery3Month(string sourcePath, string targetPath)
         {
             CreateFile(targetPath);
 
+            this.maxBytes = CalculateFilesSize(sourcePath);
 
             var filesToHandle = new DirectoryInfo(sourcePath);
 
@@ -77,14 +119,17 @@ namespace DateSeparator.Logic
 
                 CreateFile(newTargetWithYearWithMonth);
                 File.Copy(fileInfo.DirectoryName + @"\" + fileInfo.Name, newTargetWithYearWithMonth + @"\" + fileInfo.Name, true);
-
+                readBytes += fileInfo.Length;
+                CalculateProgress(readBytes);
             }
+            ResetBytes();
         }
 
         public void CopyIntoYears(string sourcePath, string targetPath)
         {
             CreateFile(targetPath);
 
+            this.maxBytes = CalculateFilesSize(sourcePath);
 
             var filesToHandle = new DirectoryInfo(sourcePath);
 
@@ -98,7 +143,10 @@ namespace DateSeparator.Logic
                 var newTargetWithYear = targetPath + @"\" + fileInfo.LastWriteTime.Year;
                 CreateFile(newTargetWithYear);
                 File.Copy(fileInfo.DirectoryName + @"\" + fileInfo.Name, newTargetWithYear + @"\" + fileInfo.Name, true);
+                readBytes += fileInfo.Length;
+                CalculateProgress(readBytes);
             }
+            ResetBytes();
         }
         public void CreateFile(String path)
         {

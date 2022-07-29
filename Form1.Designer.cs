@@ -38,11 +38,12 @@ namespace DateSeparator
             this.targetTextBox = new System.Windows.Forms.TextBox();
             this.startButton = new System.Windows.Forms.Button();
             this.progressBar = new System.Windows.Forms.ProgressBar();
-            this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
+            Form1.backgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.warningLabel = new System.Windows.Forms.Label();
             this.everyMonthRadioButton = new System.Windows.Forms.RadioButton();
             this.every3MonthRadioButton = new System.Windows.Forms.RadioButton();
             this.yearRadioButton = new System.Windows.Forms.RadioButton();
+            this.percentageLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // sourceLabel
@@ -108,7 +109,7 @@ namespace DateSeparator
             // startButton
             // 
             this.startButton.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold);
-            this.startButton.Location = new System.Drawing.Point(734, 233);
+            this.startButton.Location = new System.Drawing.Point(725, 197);
             this.startButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(121, 54);
@@ -119,25 +120,24 @@ namespace DateSeparator
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(327, 249);
+            this.progressBar.Location = new System.Drawing.Point(318, 213);
             this.progressBar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(300, 28);
-            this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.progressBar.TabIndex = 9;
             this.progressBar.Visible = false;
             // 
             // backgroundWorker
             // 
-            this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_DoWork);
-            this.backgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker_RunWorkerCompleted);
-            // 
+            Form1.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_DoWork);
+            Form1.backgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker_RunWorkerCompleted);
+            Form1.backgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker_ProgressChanged);
             // warningLabel
             // 
             this.warningLabel.AutoSize = true;
             this.warningLabel.Font = new System.Drawing.Font("Segoe UI", 13F);
             this.warningLabel.ForeColor = System.Drawing.Color.Red;
-            this.warningLabel.Location = new System.Drawing.Point(309, 290);
+            this.warningLabel.Location = new System.Drawing.Point(300, 254);
             this.warningLabel.Name = "warningLabel";
             this.warningLabel.Size = new System.Drawing.Size(339, 36);
             this.warningLabel.TabIndex = 10;
@@ -150,7 +150,7 @@ namespace DateSeparator
             this.everyMonthRadioButton.AutoSize = true;
             this.everyMonthRadioButton.Checked = true;
             this.everyMonthRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.everyMonthRadioButton.Location = new System.Drawing.Point(87, 233);
+            this.everyMonthRadioButton.Location = new System.Drawing.Point(78, 171);
             this.everyMonthRadioButton.Name = "everyMonthRadioButton";
             this.everyMonthRadioButton.Size = new System.Drawing.Size(170, 33);
             this.everyMonthRadioButton.TabIndex = 12;
@@ -162,7 +162,7 @@ namespace DateSeparator
             // 
             this.every3MonthRadioButton.AutoSize = true;
             this.every3MonthRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.every3MonthRadioButton.Location = new System.Drawing.Point(87, 272);
+            this.every3MonthRadioButton.Location = new System.Drawing.Point(78, 210);
             this.every3MonthRadioButton.Name = "every3MonthRadioButton";
             this.every3MonthRadioButton.Size = new System.Drawing.Size(189, 33);
             this.every3MonthRadioButton.TabIndex = 13;
@@ -173,19 +173,30 @@ namespace DateSeparator
             // 
             this.yearRadioButton.AutoSize = true;
             this.yearRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.yearRadioButton.Location = new System.Drawing.Point(87, 311);
+            this.yearRadioButton.Location = new System.Drawing.Point(78, 249);
             this.yearRadioButton.Name = "yearRadioButton";
             this.yearRadioButton.Size = new System.Drawing.Size(145, 33);
             this.yearRadioButton.TabIndex = 14;
             this.yearRadioButton.Text = "Just years";
             this.yearRadioButton.UseVisualStyleBackColor = true;
-            
+            // 
+            // percentageLabel
+            // 
+            this.percentageLabel.AutoSize = true;
+            this.percentageLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.percentageLabel.Location = new System.Drawing.Point(635, 221);
+            this.percentageLabel.Name = "percentageLabel";
+            this.percentageLabel.Size = new System.Drawing.Size(41, 25);
+            this.percentageLabel.TabIndex = 15;
+            this.percentageLabel.Text = "0%";
+            this.percentageLabel.Visible = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(899, 437);
+            this.Controls.Add(this.percentageLabel);
             this.Controls.Add(this.yearRadioButton);
             this.Controls.Add(this.every3MonthRadioButton);
             this.Controls.Add(this.everyMonthRadioButton);
@@ -218,11 +229,12 @@ namespace DateSeparator
         private System.Windows.Forms.TextBox targetTextBox;
         private System.Windows.Forms.Button startButton;
         private System.Windows.Forms.ProgressBar progressBar;
-        private System.ComponentModel.BackgroundWorker backgroundWorker;
+        public static System.ComponentModel.BackgroundWorker backgroundWorker;
         private System.Windows.Forms.Label warningLabel;
         private System.Windows.Forms.RadioButton everyMonthRadioButton;
         private System.Windows.Forms.RadioButton every3MonthRadioButton;
         private System.Windows.Forms.RadioButton yearRadioButton;
+        private System.Windows.Forms.Label percentageLabel;
     }
 }
 

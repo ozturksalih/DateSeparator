@@ -15,6 +15,7 @@ namespace DateSeparator
         {
             InitializeComponent();
             this.logic = new Logic.Logic();
+            backgroundWorker.WorkerReportsProgress = true;
         }
 
         
@@ -47,6 +48,8 @@ namespace DateSeparator
                 startButton.Enabled = false;
                 progressBar.Visible = true;
                 warningLabel.Visible = true;
+                percentageLabel.Visible = true;
+                
                 backgroundWorker.RunWorkerAsync();
                 
             }
@@ -62,6 +65,10 @@ namespace DateSeparator
             startButton.Enabled = true;
             progressBar.Visible = false;
             warningLabel.Visible = false;
+            percentageLabel.Visible = false;
+
+            progressBar.Value = 0;
+            percentageLabel.Text = 0 + "%";
             MessageBox.Show("Operation is completed");
         }
 
@@ -87,19 +94,11 @@ namespace DateSeparator
             
      
         }
-        public void SubDirectoryChecker()
-        {
-
-
-            //subdirectory
-
-            //var directories = filesToHandle.GetDirectories();
-            //while (directories.Length != 0)
-            //{
-
-            //}
-        }
-
         
+        private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            progressBar.Value = e.ProgressPercentage;
+            percentageLabel.Text = e.ProgressPercentage + "%";
+        }
     }
 }
