@@ -68,16 +68,17 @@ namespace DateSeparator
             // 
             // sourceTextBox
             // 
-            this.sourceTextBox.Location = new System.Drawing.Point(362, 57);
+            this.sourceTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.sourceTextBox.Location = new System.Drawing.Point(302, 53);
             this.sourceTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.sourceTextBox.Name = "sourceTextBox";
-            this.sourceTextBox.Size = new System.Drawing.Size(354, 26);
+            this.sourceTextBox.Size = new System.Drawing.Size(371, 30);
             this.sourceTextBox.TabIndex = 4;
             // 
             // sourceButton
             // 
             this.sourceButton.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.sourceButton.Location = new System.Drawing.Point(734, 49);
+            this.sourceButton.Location = new System.Drawing.Point(679, 48);
             this.sourceButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.sourceButton.Name = "sourceButton";
             this.sourceButton.Size = new System.Drawing.Size(54, 41);
@@ -89,7 +90,7 @@ namespace DateSeparator
             // targetButton
             // 
             this.targetButton.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.targetButton.Location = new System.Drawing.Point(734, 106);
+            this.targetButton.Location = new System.Drawing.Point(679, 105);
             this.targetButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.targetButton.Name = "targetButton";
             this.targetButton.Size = new System.Drawing.Size(54, 41);
@@ -100,10 +101,11 @@ namespace DateSeparator
             // 
             // targetTextBox
             // 
-            this.targetTextBox.Location = new System.Drawing.Point(362, 114);
+            this.targetTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.targetTextBox.Location = new System.Drawing.Point(302, 110);
             this.targetTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.targetTextBox.Name = "targetTextBox";
-            this.targetTextBox.Size = new System.Drawing.Size(354, 26);
+            this.targetTextBox.Size = new System.Drawing.Size(371, 30);
             this.targetTextBox.TabIndex = 6;
             // 
             // startButton
@@ -126,7 +128,7 @@ namespace DateSeparator
             this.progressBar.Size = new System.Drawing.Size(300, 28);
             this.progressBar.TabIndex = 9;
             this.progressBar.Visible = false;
-            // 
+            //
             // backgroundWorker
             // 
             Form1.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_DoWork);
@@ -150,7 +152,7 @@ namespace DateSeparator
             this.everyMonthRadioButton.AutoSize = true;
             this.everyMonthRadioButton.Checked = true;
             this.everyMonthRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.everyMonthRadioButton.Location = new System.Drawing.Point(78, 171);
+            this.everyMonthRadioButton.Location = new System.Drawing.Point(89, 169);
             this.everyMonthRadioButton.Name = "everyMonthRadioButton";
             this.everyMonthRadioButton.Size = new System.Drawing.Size(170, 33);
             this.everyMonthRadioButton.TabIndex = 12;
@@ -162,7 +164,7 @@ namespace DateSeparator
             // 
             this.every3MonthRadioButton.AutoSize = true;
             this.every3MonthRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.every3MonthRadioButton.Location = new System.Drawing.Point(78, 210);
+            this.every3MonthRadioButton.Location = new System.Drawing.Point(89, 208);
             this.every3MonthRadioButton.Name = "every3MonthRadioButton";
             this.every3MonthRadioButton.Size = new System.Drawing.Size(189, 33);
             this.every3MonthRadioButton.TabIndex = 13;
@@ -173,7 +175,7 @@ namespace DateSeparator
             // 
             this.yearRadioButton.AutoSize = true;
             this.yearRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.yearRadioButton.Location = new System.Drawing.Point(78, 249);
+            this.yearRadioButton.Location = new System.Drawing.Point(89, 247);
             this.yearRadioButton.Name = "yearRadioButton";
             this.yearRadioButton.Size = new System.Drawing.Size(145, 33);
             this.yearRadioButton.TabIndex = 14;

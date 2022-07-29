@@ -41,14 +41,29 @@ namespace DateSeparator
             }
         }
 
+        private void ChangeUI(bool value)
+        {
+            startButton.Enabled = !value;
+            sourceButton.Enabled = !value;
+            targetButton.Enabled = !value;
+
+            everyMonthRadioButton.Enabled = !value;
+            every3MonthRadioButton.Enabled = !value;
+            yearRadioButton.Enabled = !value;
+
+            sourceTextBox.ReadOnly = value;
+            targetTextBox.ReadOnly = value;
+            progressBar.Visible = value;
+            warningLabel.Visible = value;
+            percentageLabel.Visible = value;
+            
+        }
+
         private void startButton_Click(object sender, EventArgs e)
         {
             if(sourceTextBox.Text.Length != 0 && targetTextBox.Text.Length != 0)
             {
-                startButton.Enabled = false;
-                progressBar.Visible = true;
-                warningLabel.Visible = true;
-                percentageLabel.Visible = true;
+                ChangeUI(true);
                 
                 backgroundWorker.RunWorkerAsync();
                 
@@ -62,10 +77,7 @@ namespace DateSeparator
         
         private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            startButton.Enabled = true;
-            progressBar.Visible = false;
-            warningLabel.Visible = false;
-            percentageLabel.Visible = false;
+            ChangeUI(false);
 
             progressBar.Value = 0;
             percentageLabel.Text = 0 + "%";
